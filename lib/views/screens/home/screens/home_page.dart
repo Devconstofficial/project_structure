@@ -340,6 +340,7 @@ class _HomeState extends State<Home> {
               labelColor: Colors.white,
               unselectedLabelColor: Colors.white,
               dividerHeight: 0,
+              labelPadding: EdgeInsets.symmetric(horizontal: Adaptive.sp(5)),
               labelStyle: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w600
