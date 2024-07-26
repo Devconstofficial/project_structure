@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
@@ -5,17 +8,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:gradient_circular_progress_indicator/gradient_circular_progress_indicator.dart';
-import 'package:inner_journal_app/utils/gradient_text.dart';
+import 'package:inner_journal_app/utils/permission_handler.dart';
+import 'package:inner_journal_app/views/intermediate_widgets/gradient_text.dart';
+import 'package:pedometer_2/pedometer_2.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/color_constant.dart';
-import '../../../../utils/3d_button.dart';
+import '../../../intermediate_widgets/3d_button.dart';
 import '../bloc/home_bloc.dart';
 import '../model/heart_beat_model.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key});
+  const Home({super.key});
 
   @override
   _HomeState createState() => _HomeState();
@@ -24,11 +30,50 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late HomeBloc homeBloc;
   final EasyInfiniteDateTimelineController _controller = EasyInfiniteDateTimelineController();
+  DateTime now = DateTime.now();
+  late DateTime startOfDay = DateTime(now.year, now.month, now.day);
+  PermissionHandler permissionHandler = PermissionHandler();
+  StreamSubscription? _stepStreamFrom;
+
+  startStepCount() async {
+    await permissionHandler.checkPermissionForStorage(context);
+    PermissionStatus perm = Platform.isAndroid ? await Permission.activityRecognition.status : await Permission.sensors.status;
+    if(perm.isGranted){
+
+      if (Platform.isAndroid) {
+        int stepCountStreamFrom = await Pedometer().getStepCount(from: startOfDay, to: now);
+        int? androidFirstStepFrom;
+        _stepStreamFrom = Pedometer().stepCountStream().listen((step) {
+          if (androidFirstStepFrom == null) {
+            androidFirstStepFrom = step;
+            return;
+          }
+          homeBloc.add(HomeEvent.loadHomeScreen(context: context,stepCountStreamFrom: stepCountStreamFrom + step - androidFirstStepFrom!));
+        });
+      }
+      else{
+        _stepStreamFrom = Pedometer().stepCountStreamFrom(from: startOfDay).listen((step) {
+          homeBloc.add(HomeEvent.loadHomeScreen(context: context,stepCountStreamFrom: step));
+        });
+      }
+
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     homeBloc = context.read<HomeBloc>();
+    startStepCount();
+
+  }
+
+  @override
+  void dispose() {
+    if(_stepStreamFrom != null){
+      _stepStreamFrom!.cancel();
+    }
+    super.dispose();
   }
 
   @override
@@ -95,7 +140,7 @@ class _HomeState extends State<Home> {
               _buildSensorWidget(
                 title: "Walk",
                 image: Assets.imagesWalk,
-                progress: state.totalWalkedSteps / 1000,
+                progress: state.totalWalkedSteps / 10000,
                 value: state.totalWalkedSteps.toString(),
                 unit: "Steps",
               ),

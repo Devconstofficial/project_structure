@@ -18,21 +18,24 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadHomeScreen,
+    required TResult Function(BuildContext context, int stepCountStreamFrom)
+        loadHomeScreen,
     required TResult Function(DateTime focusedDate) updateFocusedDate,
     required TResult Function(int index) updateBottomNavigationIndex,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadHomeScreen,
+    TResult? Function(BuildContext context, int stepCountStreamFrom)?
+        loadHomeScreen,
     TResult? Function(DateTime focusedDate)? updateFocusedDate,
     TResult? Function(int index)? updateBottomNavigationIndex,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadHomeScreen,
+    TResult Function(BuildContext context, int stepCountStreamFrom)?
+        loadHomeScreen,
     TResult Function(DateTime focusedDate)? updateFocusedDate,
     TResult Function(int index)? updateBottomNavigationIndex,
     required TResult orElse(),
@@ -87,6 +90,8 @@ abstract class _$$LoadHomeScreenImplCopyWith<$Res> {
   factory _$$LoadHomeScreenImplCopyWith(_$LoadHomeScreenImpl value,
           $Res Function(_$LoadHomeScreenImpl) then) =
       __$$LoadHomeScreenImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context, int stepCountStreamFrom});
 }
 
 /// @nodoc
@@ -96,57 +101,95 @@ class __$$LoadHomeScreenImplCopyWithImpl<$Res>
   __$$LoadHomeScreenImplCopyWithImpl(
       _$LoadHomeScreenImpl _value, $Res Function(_$LoadHomeScreenImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+    Object? stepCountStreamFrom = null,
+  }) {
+    return _then(_$LoadHomeScreenImpl(
+      context: null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+      stepCountStreamFrom: null == stepCountStreamFrom
+          ? _value.stepCountStreamFrom
+          : stepCountStreamFrom // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadHomeScreenImpl implements _LoadHomeScreen {
-  const _$LoadHomeScreenImpl();
+  const _$LoadHomeScreenImpl(
+      {required this.context, required this.stepCountStreamFrom});
+
+  @override
+  final BuildContext context;
+  @override
+  final int stepCountStreamFrom;
 
   @override
   String toString() {
-    return 'HomeEvent.loadHomeScreen()';
+    return 'HomeEvent.loadHomeScreen(context: $context, stepCountStreamFrom: $stepCountStreamFrom)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadHomeScreenImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadHomeScreenImpl &&
+            (identical(other.context, context) || other.context == context) &&
+            (identical(other.stepCountStreamFrom, stepCountStreamFrom) ||
+                other.stepCountStreamFrom == stepCountStreamFrom));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, context, stepCountStreamFrom);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadHomeScreenImplCopyWith<_$LoadHomeScreenImpl> get copyWith =>
+      __$$LoadHomeScreenImplCopyWithImpl<_$LoadHomeScreenImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadHomeScreen,
+    required TResult Function(BuildContext context, int stepCountStreamFrom)
+        loadHomeScreen,
     required TResult Function(DateTime focusedDate) updateFocusedDate,
     required TResult Function(int index) updateBottomNavigationIndex,
   }) {
-    return loadHomeScreen();
+    return loadHomeScreen(context, stepCountStreamFrom);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadHomeScreen,
+    TResult? Function(BuildContext context, int stepCountStreamFrom)?
+        loadHomeScreen,
     TResult? Function(DateTime focusedDate)? updateFocusedDate,
     TResult? Function(int index)? updateBottomNavigationIndex,
   }) {
-    return loadHomeScreen?.call();
+    return loadHomeScreen?.call(context, stepCountStreamFrom);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadHomeScreen,
+    TResult Function(BuildContext context, int stepCountStreamFrom)?
+        loadHomeScreen,
     TResult Function(DateTime focusedDate)? updateFocusedDate,
     TResult Function(int index)? updateBottomNavigationIndex,
     required TResult orElse(),
   }) {
     if (loadHomeScreen != null) {
-      return loadHomeScreen();
+      return loadHomeScreen(context, stepCountStreamFrom);
     }
     return orElse();
   }
@@ -190,7 +233,15 @@ class _$LoadHomeScreenImpl implements _LoadHomeScreen {
 }
 
 abstract class _LoadHomeScreen implements HomeEvent {
-  const factory _LoadHomeScreen() = _$LoadHomeScreenImpl;
+  const factory _LoadHomeScreen(
+      {required final BuildContext context,
+      required final int stepCountStreamFrom}) = _$LoadHomeScreenImpl;
+
+  BuildContext get context;
+  int get stepCountStreamFrom;
+  @JsonKey(ignore: true)
+  _$$LoadHomeScreenImplCopyWith<_$LoadHomeScreenImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -259,7 +310,8 @@ class _$UpdateFocusedDateImpl implements _UpdateFocusedDate {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadHomeScreen,
+    required TResult Function(BuildContext context, int stepCountStreamFrom)
+        loadHomeScreen,
     required TResult Function(DateTime focusedDate) updateFocusedDate,
     required TResult Function(int index) updateBottomNavigationIndex,
   }) {
@@ -269,7 +321,8 @@ class _$UpdateFocusedDateImpl implements _UpdateFocusedDate {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadHomeScreen,
+    TResult? Function(BuildContext context, int stepCountStreamFrom)?
+        loadHomeScreen,
     TResult? Function(DateTime focusedDate)? updateFocusedDate,
     TResult? Function(int index)? updateBottomNavigationIndex,
   }) {
@@ -279,7 +332,8 @@ class _$UpdateFocusedDateImpl implements _UpdateFocusedDate {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadHomeScreen,
+    TResult Function(BuildContext context, int stepCountStreamFrom)?
+        loadHomeScreen,
     TResult Function(DateTime focusedDate)? updateFocusedDate,
     TResult Function(int index)? updateBottomNavigationIndex,
     required TResult orElse(),
@@ -406,7 +460,8 @@ class _$UpdateBottomNavigationIndexImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadHomeScreen,
+    required TResult Function(BuildContext context, int stepCountStreamFrom)
+        loadHomeScreen,
     required TResult Function(DateTime focusedDate) updateFocusedDate,
     required TResult Function(int index) updateBottomNavigationIndex,
   }) {
@@ -416,7 +471,8 @@ class _$UpdateBottomNavigationIndexImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadHomeScreen,
+    TResult? Function(BuildContext context, int stepCountStreamFrom)?
+        loadHomeScreen,
     TResult? Function(DateTime focusedDate)? updateFocusedDate,
     TResult? Function(int index)? updateBottomNavigationIndex,
   }) {
@@ -426,7 +482,8 @@ class _$UpdateBottomNavigationIndexImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadHomeScreen,
+    TResult Function(BuildContext context, int stepCountStreamFrom)?
+        loadHomeScreen,
     TResult Function(DateTime focusedDate)? updateFocusedDate,
     TResult Function(int index)? updateBottomNavigationIndex,
     required TResult orElse(),
@@ -496,6 +553,7 @@ mixin _$HomeState {
   int get proteinNeeded => throw _privateConstructorUsedError;
   int get carbsNeeded => throw _privateConstructorUsedError;
   int get totalWalkedSteps => throw _privateConstructorUsedError;
+  int get totalWalkedStepsAndroidFirst => throw _privateConstructorUsedError;
   int get totalSleep => throw _privateConstructorUsedError;
   int get totalWaterConsumed => throw _privateConstructorUsedError;
   int get totalHeartBeat => throw _privateConstructorUsedError;
@@ -526,6 +584,7 @@ abstract class $HomeStateCopyWith<$Res> {
       int proteinNeeded,
       int carbsNeeded,
       int totalWalkedSteps,
+      int totalWalkedStepsAndroidFirst,
       int totalSleep,
       int totalWaterConsumed,
       int totalHeartBeat,
@@ -558,6 +617,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? proteinNeeded = null,
     Object? carbsNeeded = null,
     Object? totalWalkedSteps = null,
+    Object? totalWalkedStepsAndroidFirst = null,
     Object? totalSleep = null,
     Object? totalWaterConsumed = null,
     Object? totalHeartBeat = null,
@@ -600,6 +660,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       totalWalkedSteps: null == totalWalkedSteps
           ? _value.totalWalkedSteps
           : totalWalkedSteps // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalWalkedStepsAndroidFirst: null == totalWalkedStepsAndroidFirst
+          ? _value.totalWalkedStepsAndroidFirst
+          : totalWalkedStepsAndroidFirst // ignore: cast_nullable_to_non_nullable
               as int,
       totalSleep: null == totalSleep
           ? _value.totalSleep
@@ -658,6 +722,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       int proteinNeeded,
       int carbsNeeded,
       int totalWalkedSteps,
+      int totalWalkedStepsAndroidFirst,
       int totalSleep,
       int totalWaterConsumed,
       int totalHeartBeat,
@@ -688,6 +753,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? proteinNeeded = null,
     Object? carbsNeeded = null,
     Object? totalWalkedSteps = null,
+    Object? totalWalkedStepsAndroidFirst = null,
     Object? totalSleep = null,
     Object? totalWaterConsumed = null,
     Object? totalHeartBeat = null,
@@ -730,6 +796,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
       totalWalkedSteps: null == totalWalkedSteps
           ? _value.totalWalkedSteps
           : totalWalkedSteps // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalWalkedStepsAndroidFirst: null == totalWalkedStepsAndroidFirst
+          ? _value.totalWalkedStepsAndroidFirst
+          : totalWalkedStepsAndroidFirst // ignore: cast_nullable_to_non_nullable
               as int,
       totalSleep: null == totalSleep
           ? _value.totalSleep
@@ -783,6 +853,7 @@ class _$HomeStateImpl implements _HomeState {
       required this.proteinNeeded,
       required this.carbsNeeded,
       required this.totalWalkedSteps,
+      required this.totalWalkedStepsAndroidFirst,
       required this.totalSleep,
       required this.totalWaterConsumed,
       required this.totalHeartBeat,
@@ -812,6 +883,8 @@ class _$HomeStateImpl implements _HomeState {
   final int carbsNeeded;
   @override
   final int totalWalkedSteps;
+  @override
+  final int totalWalkedStepsAndroidFirst;
   @override
   final int totalSleep;
   @override
@@ -851,7 +924,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(homeLoadingBlocStatus: $homeLoadingBlocStatus, currentIndex: $currentIndex, clockFrameValue: $clockFrameValue, workOutStreakInDays: $workOutStreakInDays, caloriesBurnt: $caloriesBurnt, proteinNeeded: $proteinNeeded, carbsNeeded: $carbsNeeded, totalWalkedSteps: $totalWalkedSteps, totalSleep: $totalSleep, totalWaterConsumed: $totalWaterConsumed, totalHeartBeat: $totalHeartBeat, fatRatio: $fatRatio, todayWorkout: $todayWorkout, focusedDate: $focusedDate, bottomNavigationImages: $bottomNavigationImages, heartBeatModel: $heartBeatModel, mealModel: $mealModel)';
+    return 'HomeState(homeLoadingBlocStatus: $homeLoadingBlocStatus, currentIndex: $currentIndex, clockFrameValue: $clockFrameValue, workOutStreakInDays: $workOutStreakInDays, caloriesBurnt: $caloriesBurnt, proteinNeeded: $proteinNeeded, carbsNeeded: $carbsNeeded, totalWalkedSteps: $totalWalkedSteps, totalWalkedStepsAndroidFirst: $totalWalkedStepsAndroidFirst, totalSleep: $totalSleep, totalWaterConsumed: $totalWaterConsumed, totalHeartBeat: $totalHeartBeat, fatRatio: $fatRatio, todayWorkout: $todayWorkout, focusedDate: $focusedDate, bottomNavigationImages: $bottomNavigationImages, heartBeatModel: $heartBeatModel, mealModel: $mealModel)';
   }
 
   @override
@@ -875,6 +948,10 @@ class _$HomeStateImpl implements _HomeState {
                 other.carbsNeeded == carbsNeeded) &&
             (identical(other.totalWalkedSteps, totalWalkedSteps) ||
                 other.totalWalkedSteps == totalWalkedSteps) &&
+            (identical(other.totalWalkedStepsAndroidFirst,
+                    totalWalkedStepsAndroidFirst) ||
+                other.totalWalkedStepsAndroidFirst ==
+                    totalWalkedStepsAndroidFirst) &&
             (identical(other.totalSleep, totalSleep) ||
                 other.totalSleep == totalSleep) &&
             (identical(other.totalWaterConsumed, totalWaterConsumed) ||
@@ -906,6 +983,7 @@ class _$HomeStateImpl implements _HomeState {
       proteinNeeded,
       carbsNeeded,
       totalWalkedSteps,
+      totalWalkedStepsAndroidFirst,
       totalSleep,
       totalWaterConsumed,
       totalHeartBeat,
@@ -933,6 +1011,7 @@ abstract class _HomeState implements HomeState {
       required final int proteinNeeded,
       required final int carbsNeeded,
       required final int totalWalkedSteps,
+      required final int totalWalkedStepsAndroidFirst,
       required final int totalSleep,
       required final int totalWaterConsumed,
       required final int totalHeartBeat,
@@ -959,6 +1038,8 @@ abstract class _HomeState implements HomeState {
   int get carbsNeeded;
   @override
   int get totalWalkedSteps;
+  @override
+  int get totalWalkedStepsAndroidFirst;
   @override
   int get totalSleep;
   @override
